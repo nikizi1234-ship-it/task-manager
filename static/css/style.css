@@ -1,0 +1,673 @@
+/* Custom styles for Task Manager with modern dark theme */
+:root {
+    --primary: #10a37f;
+    --primary-dark: #0d8c6c;
+    --primary-light: #12b592;
+    --bg-dark: #0f0f0f;
+    --bg-darker: #0a0a0a;
+    --bg-light: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --text-muted: #666666;
+    --border: rgba(255,255,255,0.1);
+    --gradient: linear-gradient(135deg, var(--primary) 0%, #1e90ff 100%);
+    --glow: 0 0 30px rgba(16, 163, 127, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: var(--bg-darker);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Gradient Background */
+.gradient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(16, 163, 127, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(30, 144, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(16, 163, 127, 0.08) 0%, transparent 50%);
+    z-index: -2;
+    animation: gradientShift 8s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
+}
+
+/* Navigation */
+.navbar {
+    background: rgba(15, 15, 15, 0.95) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+    z-index: 1030;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-secondary) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.5rem 0;
+    margin: 0 0.5rem;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient);
+    transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--text-primary) !important;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+/* Main container with proper spacing */
+.container.mt-5.pt-4 {
+    margin-top: 80px !important;
+    padding-top: 1rem !important;
+}
+
+.dashboard-header {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Cards - FIXED VERSION */
+.card {
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: visible; /* Changed from hidden */
+}
+
+/* Убираем все псевдо-элементы которые мешают кликам */
+.card::before {
+    display: none; /* Complete removal */
+}
+
+.card:hover {
+    transform: translateY(-2px); /* More subtle hover */
+    border-color: var(--primary);
+    box-shadow: var(--glow);
+}
+
+.card-header {
+    background: rgba(16, 163, 127, 0.1) !important;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+}
+
+.card-body {
+    position: relative;
+    z-index: 2;
+}
+
+/* Fixed buttons with proper click area */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: visible; /* Changed from hidden */
+    border: none;
+    cursor: pointer;
+    z-index: 5; /* High z-index for buttons */
+}
+
+/* Убираем проблемный псевдо-элемент */
+.btn::before {
+    display: none; /* Complete removal */
+}
+
+.btn-primary {
+    background: var(--gradient);
+    box-shadow: 0 4px 15px rgba(16, 163, 127, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 163, 127, 0.4);
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    background: transparent;
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    color: white;
+}
+
+/* Forms */
+.form-control {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    padding: 0.75rem 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.form-control:focus {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(16, 163, 127, 0.25);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+.form-label {
+    color: var(--text-primary);
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+}
+
+.form-text {
+    color: var(--text-muted) !important;
+    position: relative;
+    z-index: 2;
+}
+
+/* Custom select styles */
+.form-select {
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text-primary) !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 1rem !important;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 5;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.form-select:focus {
+    background: rgba(255,255,255,0.08) !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 0.2rem rgba(16, 163, 127, 0.25) !important;
+    color: var(--text-primary) !important;
+    transform: translateY(-1px);
+}
+
+/* Custom dropdown arrow */
+.form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%2310a37f' viewBox='0 0 16 16'%3e%3cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.75rem center !important;
+    background-size: 16px 12px !important;
+}
+
+/* Task Cards */
+.task-card {
+    border-left: 4px solid var(--primary) !important;
+    transition: all 0.3s ease;
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    position: relative;
+    z-index: 2;
+}
+
+.task-card:hover {
+    transform: translateX(5px);
+    border-color: var(--primary) !important;
+    box-shadow: var(--glow);
+}
+
+.task-card.border-success {
+    border-left-color: #28a745 !important;
+}
+
+.task-actions {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: relative;
+    z-index: 3;
+}
+
+.task-card:hover .task-actions {
+    opacity: 1;
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    border-radius: 6px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Alerts */
+.alert {
+    border-radius: 10px;
+    border: none;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 10;
+}
+
+.alert-success {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.alert-danger {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.alert-info {
+    background: rgba(23, 162, 184, 0.1);
+    color: #17a2b8;
+    border: 1px solid rgba(23, 162, 184, 0.3);
+}
+
+/* Progress bars */
+.progress {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+.progress-bar {
+    background: var(--gradient);
+    border-radius: 10px;
+}
+
+/* Modal */
+.modal-content {
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    backdrop-filter: blur(20px);
+    position: relative;
+    z-index: 1060;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border);
+    background: rgba(16, 163, 127, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 2;
+}
+
+/* Home section animations */
+.home-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.home-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: var(--gradient);
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.3;
+    animation: pulse 4s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% { 
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+.display-4 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 1s ease-out;
+    position: relative;
+    z-index: 2;
+}
+
+.lead {
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    animation: fadeInUp 1s ease-out 0.2s both;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Feature cards - FIXED VERSION */
+.feature-card {
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: visible; /* Changed from hidden */
+}
+
+/* Убираем проблемные псевдо-элементы */
+.feature-card::before {
+    display: none; /* Complete removal */
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: var(--glow);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 2;
+}
+
+.feature-card h5,
+.feature-card p {
+    position: relative;
+    z-index: 2;
+}
+
+/* Stats section */
+.stats-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 2;
+}
+
+/* Custom notification */
+.custom-notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 300px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+/* Links - FIXED VERSION */
+a {
+    position: relative;
+    z-index: 5; /* High z-index for links */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a.text-primary {
+    color: var(--primary) !important;
+}
+
+a.text-primary:hover {
+    color: var(--primary-light) !important;
+    transform: translateY(-1px);
+}
+
+/* Utility classes */
+.text-gradient {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 2;
+}
+
+.border-gradient {
+    border: 2px solid;
+    border-image: var(--gradient) 1;
+}
+
+.glow {
+    box-shadow: var(--glow);
+}
+
+/* Fade in animations */
+.fade-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+/* Mobile navigation fix */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        background: rgba(15, 15, 15, 0.98);
+        backdrop-filter: blur(20px);
+        border-radius: 10px;
+        margin-top: 1rem;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        position: relative;
+        z-index: 1030;
+    }
+    
+    .container.mt-5.pt-4 {
+        margin-top: 100px !important;
+    }
+    
+    .display-4 {
+        font-size: 2.5rem;
+    }
+    
+    .lead {
+        font-size: 1.1rem;
+    }
+    
+    .feature-card {
+        padding: 1.5rem;
+    }
+    
+    .home-section::before {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .btn {
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .lead {
+        font-size: 1rem;
+    }
+    
+    .feature-card {
+        padding: 1.25rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+    
+    .btn {
+        padding: 0.6rem 1.25rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Ensure all interactive elements are clickable */
+a, button, .btn, .form-select, .form-control {
+    cursor: pointer;
+    position: relative;
+    z-index: 5;
+}
+
+/* Fix for any potential z-index issues */
+.modal {
+    z-index: 1060;
+}
+
+.modal-backdrop {
+    z-index: 1050;
+}
+
+/* Loading states */
+.spinner-border {
+    color: var(--primary);
+    position: relative;
+    z-index: 2;
+}
+
+/* Text selection */
+::selection {
+    background: var(--primary);
+    color: white;
+}
+
+::-moz-selection {
+    background: var(--primary);
+    color: white;
+}
+
+/* Focus styles for accessibility */
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+    outline: none;
+}
+
+/* Disabled states */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn:disabled:hover {
+    transform: none !important;
+}
+
+/* Custom dropdown options */
+.form-select option {
+    background: var(--bg-light) !important;
+    color: var(--text-primary) !important;
+    padding: 10px !important;
+}
+
+/* Ensure all content is above background */
+.card *,
+.feature-card *,
+.modal * {
+    position: relative;
+    z-index: 2;
+}

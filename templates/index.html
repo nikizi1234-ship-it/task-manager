@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="home-section">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-4">🚀 Task Manager</h1>
+                <p class="lead mb-5">Управляйте своими задачами эффективно с современным и интуитивным менеджером</p>
+                
+                <div class="row mt-5">
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h5>Умные задачи</h5>
+                            <p class="text-secondary">Создавайте, организуйте и отслеживайте задачи с приоритетами и сроками</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h5>Аналитика</h5>
+                            <p class="text-secondary">Наблюдайте за прогрессом и получайте детальную статистику выполнения</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h5>Надежное хранение</h5>
+                            <p class="text-secondary">Ваши данные защищены и надежно хранятся в SQLite базе</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5">
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg me-3 px-4 py-2">
+                        <i class="fas fa-rocket me-2"></i>Начать бесплатно
+                    </a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg px-4 py-2">
+                        <i class="fas fa-sign-in-alt me-2"></i>Войти в аккаунт
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

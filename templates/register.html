@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Task Manager{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-user-plus"></i> Регистрация</h4>
+            </div>
+            <div class="card-body">
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Имя пользователя</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                        <div class="form-text">Минимум 3 символа</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Пароль</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="form-text">Минимум 6 символов</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 py-2">
+                        <i class="fas fa-user-plus me-2"></i> Зарегистрироваться
+                    </button>
+                </form>
+                
+                <!-- ИСПРАВЛЕННАЯ ССЫЛКА -->
+                <div class="mt-3 text-center">
+                    <a href="{{ url_for('login') }}" class="text-primary text-decoration-none fw-medium">
+                        <i class="fas fa-sign-in-alt me-1"></i>Уже есть аккаунт? Войдите
+                    </a>
+                </div>
+                
+                <div id="message" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('registerForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        username: document.getElementById('username').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+    };
+    
+    try {
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        const messageDiv = document.getElementById('message');
+        
+        if (response.ok) {
+            messageDiv.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+            setTimeout(() => {
+                window.location.href = '/dashboard';
+            }, 1000);
+        } else {
+            messageDiv.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+        }
+    } catch (error) {
+        document.getElementById('message').innerHTML = 
+            `<div class="alert alert-danger">Ошибка сети: ${error}</div>`;
+    }
+});
+</script>
+{% endblock %}
