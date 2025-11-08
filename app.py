@@ -252,8 +252,7 @@ def get_current_user():
         return jsonify({'error': f'Server error: {str(e)}'}), 500
 
 # Добавьте это ПЕРЕД if __name__ == '__main__':
-@app.before_first_request
-def create_tables():
+with app.app_context():
     db.init_db()
 
 if __name__ == '__main__':
