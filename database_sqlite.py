@@ -5,7 +5,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class Database:
     def __init__(self):
-        self.db_file = 'task_manager.db'
+        # ИСПРАВЛЕНИЕ: используем абсолютный путь
+        self.db_file = os.path.join(os.getcwd(), 'task_manager.db')
         self.connection = None
         self.connect()
         self.init_db()
